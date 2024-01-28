@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Quicksand', sans-serif;
+}
+
+button,
+input[type='submit'],
+input[type='reset'] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+input:focus {
+	outline: none;
+}
+
+textarea {
+	resize: none;
+	overflow: hidden;
+}
+
+textarea:focus {
+	outline: none;
+}

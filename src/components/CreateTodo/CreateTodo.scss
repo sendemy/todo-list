@@ -1,0 +1,35 @@
+@import '../../utils/variables.scss';
+
+.add-todo-container {
+	border-radius: 0.15rem;
+	text-align: left;
+	transition: all 0.2s;
+
+	&:hover {
+		cursor: pointer;
+		background-color: none;
+	}
+}
+
+.add-todo-text {
+	display: inline-block;
+	padding: 0.4rem 0.2rem;
+}
+
+.to-do-createTodo {
+	&:hover {
+		background-color: $to-do-color-hover;
+	}
+}
+
+.in-progress-createTodo {
+	&:hover {
+		background-color: $in-progress-color-hover;
+	}
+}
+
+.completed-createTodo {
+	&:hover {
+		background-color: $completed-color-hover;
+	}
+}

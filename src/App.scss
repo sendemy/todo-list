@@ -1,0 +1,54 @@
+@import './utils/variables.scss';
+
+.global-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 2rem;
+	margin-top: 5rem; //! 	REMOVE
+}
+
+.todos-container {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	gap: 2rem;
+	border-radius: 0.25rem;
+	width: 24rem;
+	padding: 1rem 0.5rem;
+	background-color: rgb(246, 246, 246);
+}
+
+.todos-container > div {
+	width: 100%;
+	border-radius: 0.15rem;
+}
+
+.todos-container__title {
+	font-size: 1.25rem;
+	padding: 0.3rem;
+	font-weight: 600;
+}
+
+.todos-container__todos {
+	display: flex;
+	flex-direction: column;
+	font-weight: 500;
+	gap: 0.4rem;
+	padding: 0.5rem;
+}
+
+.to-do > div {
+	background-color: $to-do-color-bg;
+	color: $to-do-color-text;
+}
+
+.in-progress > div {
+	background-color: $in-progress-color-bg;
+	color: $in-progress-color-text;
+}
+
+.completed > div {
+	background-color: $completed-color-bg;
+	color: $completed-color-text;
+}
