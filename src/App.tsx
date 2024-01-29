@@ -17,6 +17,7 @@ function App() {
 		ref: React.MutableRefObject<HTMLTextAreaElement | null>,
 		id: number
 	) {
+		// @ts-expect-error .at() on array is an error somehow
 		if (todos.at(-1).id === id) {
 			ref.current!.focus()
 		}
