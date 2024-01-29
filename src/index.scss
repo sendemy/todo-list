@@ -19,15 +19,11 @@ input[type='reset'] {
 	outline: inherit;
 }
 
-input:focus {
+input:focus, textarea:focus {
 	outline: none;
 }
 
 textarea {
 	resize: none;
 	overflow: hidden;
-}
-
-textarea:focus {
-	outline: none;
 }
