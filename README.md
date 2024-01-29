@@ -11,3 +11,6 @@ To run the project, follow these steps:
    ```
 
 - Go to http://localhost:5173 to see the result.
+
+# Preview
+https://sendemy.github.io/todo-list/
