@@ -6,9 +6,23 @@
 	background-color: white;
 	border-radius: 0.15rem;
 	text-align: left;
-	border: 1px solid rgb(208, 208, 208);
+	// border: 1px solid rgb(208, 208, 208);
+	transition: all 0.2s;
+
+	&:hover {
+		cursor: pointer;
+		background-color: #e0e0e0;
+	}
+}
+
+.todo-textarea {
+	width: 100%;
+	font-size: 1rem;
+	border-radius: 0.15rem;
+	text-align: left;
 	padding: 0.7rem;
 	transition: all 0.2s;
+	border: none;
 
 	&:hover {
 		cursor: pointer;
@@ -22,6 +36,10 @@
 	&:hover {
 		background-color: $to-do-color-hover;
 	}
+
+	&:active {
+		background-color: $to-do-color-border;
+	}
 }
 
 .in-progress-todo {
@@ -29,6 +47,10 @@
 
 	&:hover {
 		background-color: $in-progress-color-hover;
+	}
+
+	&:active {
+		background-color: $in-progress-color-border;
 	}
 }
 
@@ -38,13 +60,58 @@
 	&:hover {
 		background-color: $completed-color-hover;
 	}
+
+	&:active {
+		background-color: $completed-color-border;
+	}
 }
 
-.hide {
-	display: none;
+// .to-do-menu {
+// 	&:hover {
+// 		background-color: rgb(225, 225, 225);
+// 	}
+
+// 	&:hover ~ .todo-container {
+// 		background-color: $in-progress-color-hover;
+// 	}
+// }
+
+// .in-progress-menu {
+// 	&:hover {
+// 		background-color: rgb(225, 225, 225);
+// 	}
+// }
+
+// .completed-menu {
+// 	&:hover {
+// 		background-color: rgb(225, 225, 225);
+// 	}
+// }
+
+.todo-container {
+	position: relative;
 }
 
-.todo-container:hover + .hide {
-	display: block;
-	color: red;
+.todo-menu {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: white;
+	border-radius: 0.2rem;
+	margin-top: 0.2rem;
+	margin-right: 0.2rem;
+	border: 0.5px solid rgb(233, 233, 233);
+	transition: 0.2s all;
+
+	&:hover {
+		background-color: rgb(238, 238, 238);
+	}
+}
+
+.delete-btn {
+	padding: 0.1rem 0.1rem 0 0.1rem;
+
+	&:focus {
+		background-color: rgb(233, 233, 233);
+	}
 }

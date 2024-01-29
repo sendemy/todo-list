@@ -11,19 +11,11 @@ type TypeTodo = {
 
 function App() {
 	const [todos, setTodos] = useState<TypeTodo[]>([])
-	// const [showTemplate, setShowTemplate] = useState({
-	// 	type: '',
-	// 	show: false,
-	// })
 
-	// function handleHideTemplate(type: 'to-do' | 'in-progress' | 'completed') {
-	// 	console.log(showTemplate)
-	// 	console.log(12312)
-
-	// 	setShowTemplate(() => ({ type: type, show: false }))
-	// }
-
-	function handleSetTextAreaFocus(ref, id) {
+	function handleSetTextAreaFocus(
+		ref: React.MutableRefObject<HTMLTextAreaElement | null>,
+		id: number
+	) {
 		if (todos.at(-1).id === id) {
 			ref.current.focus()
 		}
@@ -38,16 +30,20 @@ function App() {
 			localStorage.setItem('todos', JSON.stringify([...todos, todo]))
 			setTodos((prevValue) => [...prevValue, todo])
 		}
-
-		// setShowTemplate(() => ({ type: todo.type, show: true }))
-
-		// console.log(document.querySelector('.todos-container.to-do'))
 	}
 
 	function handleEditTodo(id: number, content: string) {
 		const editedTodos = todos.map((todo) =>
 			todo.id === id ? { ...todo, content: content } : todo
 		)
+		setTodos(editedTodos)
+
+		localStorage.setItem('todos', JSON.stringify(editedTodos))
+	}
+
+	function handleDeleteTodo(id: number) {
+		const editedTodos = todos.filter((todo) => todo.id !== id)
+
 		setTodos(editedTodos)
 
 		localStorage.setItem('todos', JSON.stringify(editedTodos))
@@ -78,18 +74,13 @@ function App() {
 							<Todo
 								editTodo={handleEditTodo}
 								setTextAreaFocus={handleSetTextAreaFocus}
+								deleteTodo={handleDeleteTodo}
+								id={todo.id}
 								content={todo.content}
 								type={todo.type}
-								id={todo.id}
 								key={todo.id}
 							/>
 						))}
-					{/* {showTemplate.show && showTemplate.type === 'to-do' && (
-						<TodoTemplate
-							type={'to-do'}
-							hideTemplate={(type) => handleHideTemplate(type)}
-						/>
-					)} */}
 					<CreateTodo
 						sendTodo={(todo: TypeTodo) => handleSendTodo(todo)}
 						type={'to-do'}
@@ -106,15 +97,13 @@ function App() {
 							<Todo
 								editTodo={handleEditTodo}
 								setTextAreaFocus={handleSetTextAreaFocus}
+								deleteTodo={handleDeleteTodo}
 								content={todo.content}
 								type={todo.type}
 								id={todo.id}
 								key={todo.id}
 							/>
 						))}
-					{/* {showTemplate.show && showTemplate.type === 'in-progress' && (
-						<TodoTemplate type={'in-progress'} />
-					)} */}
 					<CreateTodo
 						sendTodo={(todo: TypeTodo) => handleSendTodo(todo)}
 						type={'in-progress'}
@@ -131,15 +120,13 @@ function App() {
 							<Todo
 								editTodo={handleEditTodo}
 								setTextAreaFocus={handleSetTextAreaFocus}
+								deleteTodo={handleDeleteTodo}
 								content={todo.content}
 								type={todo.type}
 								id={todo.id}
 								key={todo.id}
 							/>
 						))}
-					{/* {showTemplate.show && showTemplate.type === 'completed' && (
-						<TodoTemplate type={'completed'} />
-					)} */}
 					<CreateTodo
 						sendTodo={(todo: TypeTodo) => handleSendTodo(todo)}
 						type={'completed'}
