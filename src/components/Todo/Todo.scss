@@ -1,12 +1,14 @@
 @import '../../utils/variables.scss';
 
 .todo-container {
+	display: flex;
+	position: relative;
+	height: 100%;
 	font-size: 1rem;
 	color: black;
 	background-color: white;
 	border-radius: 0.15rem;
 	text-align: left;
-	// border: 1px solid rgb(208, 208, 208);
 	transition: all 0.2s;
 
 	&:hover {
@@ -17,6 +19,7 @@
 
 .todo-textarea {
 	width: 100%;
+	height: 100%;
 	font-size: 1rem;
 	border-radius: 0.15rem;
 	text-align: left;
@@ -26,7 +29,7 @@
 
 	&:hover {
 		cursor: pointer;
-		background-color: #e0e0e0;
+		// background-color: #e0e0e0;
 	}
 }
 
@@ -66,33 +69,13 @@
 	}
 }
 
-// .to-do-menu {
-// 	&:hover {
-// 		background-color: rgb(225, 225, 225);
-// 	}
-
-// 	&:hover ~ .todo-container {
-// 		background-color: $in-progress-color-hover;
-// 	}
-// }
-
-// .in-progress-menu {
-// 	&:hover {
-// 		background-color: rgb(225, 225, 225);
-// 	}
-// }
-
-// .completed-menu {
-// 	&:hover {
-// 		background-color: rgb(225, 225, 225);
-// 	}
-// }
-
-.todo-container {
-	position: relative;
+.todo-textarea {
+	border: none;
 }
 
 .todo-menu {
+	flex-direction: row;
+	gap: 0.1rem;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -102,16 +85,17 @@
 	margin-right: 0.2rem;
 	border: 0.5px solid rgb(233, 233, 233);
 	transition: 0.2s all;
+}
+
+.menu-option > button {
+	padding: 0.1rem 0.1rem 0 0.1rem;
+	transition: 0.2s all;
 
 	&:hover {
 		background-color: rgb(238, 238, 238);
 	}
-}
 
-.delete-btn {
-	padding: 0.1rem 0.1rem 0 0.1rem;
-
-	&:focus {
+	&:active {
 		background-color: rgb(233, 233, 233);
 	}
 }

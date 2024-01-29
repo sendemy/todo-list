@@ -14,7 +14,7 @@ type CreateTodoProps = {
 export default function CreateTodo({ sendTodo, type }: CreateTodoProps) {
 	function handleSendTodo() {
 		sendTodo({
-			id: Math.floor(Math.random() * 100000),
+			id: Math.floor(Math.random() * 1000000),
 			content: '',
 			type: type,
 		})

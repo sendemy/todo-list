@@ -5,8 +5,8 @@ import './Todo.scss'
 type TodoProps = {
 	id: number
 	content: string
-	type: string
-	editTodo: (id: number, content: string) => void
+	type: 'to-do' | 'in-progress' | 'completed'
+	editTodo: (id: number, [propName, value]: Array<string>) => void
 	setTextAreaFocus: (
 		ref: React.MutableRefObject<HTMLTextAreaElement | null>,
 		id: number
@@ -24,20 +24,20 @@ export default function Todo({
 }: TodoProps) {
 	const [inputValue, setInputValue] = useState<string>(content)
 	const [style, setStyle] = useState({ display: 'none' })
-	// const [toggleEdit, setToggleEdit] = useState(false)
-	const textAreaRef = useRef(null)
+	const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 	const debouncedInputValue = useDebounce<string>(inputValue, 500)
 
 	const handleMouseEnterTextArea = () => {
-		setStyle({ display: 'block' })
+		setStyle({ display: 'flex' })
 	}
 
 	const handleMouseLeaveTextArea = () => {
 		setStyle({ display: 'none' })
 	}
 
+	// hover menu acts glitchy without these ones
 	function handleMouseEnterMenu() {
-		setStyle({ display: 'block' })
+		setStyle({ display: 'flex' })
 	}
 
 	function handleMouseLeaveMenu() {
@@ -53,34 +53,38 @@ export default function Todo({
 	}
 
 	function handleFocusOut(e: React.FocusEvent<HTMLTextAreaElement, Element>) {
-		// handleToggleEdit()
-
+		// deleting the todo on focus leave if it's empty
 		if (e.target.value === '') {
 			deleteTodo(id)
 		}
 	}
 
-	// function handleToggleEdit() {
-	// 	setToggleEdit(!toggleEdit)
-	// }
+	function handleMoveTodo(type: 'to-do' | 'in-progress' | 'completed') {
+		editTodo(id, ['type', type])
+	}
 
 	useEffect(() => {
-		textAreaRef.current.style.height = 'auto'
-		textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px'
+		// textarea autoresize
+		textAreaRef.current!.style.height = 'auto'
+		textAreaRef.current!.style.height = textAreaRef.current!.scrollHeight + 'px'
 	}, [inputValue])
 
 	useEffect(() => {
-		editTodo(id, debouncedInputValue)
+		editTodo(id, ['content', debouncedInputValue])
 	}, [debouncedInputValue])
 
 	useEffect(() => {
+		// force focus when rendered
 		if (inputValue === '') {
 			setTextAreaFocus(textAreaRef, id)
 		}
+
+		textAreaRef.current!.style.height = 'auto'
+		textAreaRef.current!.style.height = textAreaRef.current!.scrollHeight + 'px'
 	}, [])
 
 	return (
-		<div className='todo-container' draggable>
+		<div className={`todo-container ${type}-todo`}>
 			<textarea
 				onChange={(e) => handleChange(e)}
 				onMouseEnter={handleMouseEnterTextArea}
@@ -88,8 +92,6 @@ export default function Todo({
 				value={inputValue}
 				ref={textAreaRef}
 				onBlur={(e) => handleFocusOut(e)}
-				// onClick={handleToggleEdit}
-				// readOnly={toggleEdit}
 				placeholder='Type something...'
 				rows={1}
 				className={`todo-textarea ${type}-todo`}
@@ -100,8 +102,68 @@ export default function Todo({
 				onMouseLeave={handleMouseLeaveMenu}
 				style={style}
 			>
-				<div>
-					<button className='delete-btn' onClick={handleDelete}>
+				{type !== 'to-do' && (
+					<div className='menu-option'>
+						<button
+							onClick={() => handleMoveTodo('to-do')}
+							className='move-btn'
+						>
+							<svg
+								width='20px'
+								height='20px'
+								viewBox='0 0 16 16'
+								xmlns='http://www.w3.org/2000/svg'
+								fill='none'
+							>
+								<path fill='#f4d5d5' d='M8 3a5 5 0 100 10A5 5 0 008 3z' />
+							</svg>
+						</button>
+					</div>
+				)}
+				{type !== 'in-progress' && (
+					<div className='menu-option'>
+						<button
+							onClick={() => handleMoveTodo('in-progress')}
+							title='Move todo'
+							className='move-btn'
+						>
+							<svg
+								width='20px'
+								height='20px'
+								viewBox='0 0 16 16'
+								xmlns='http://www.w3.org/2000/svg'
+								fill='none'
+							>
+								<path fill='#f6eac4' d='M8 3a5 5 0 100 10A5 5 0 008 3z' />
+							</svg>
+						</button>
+					</div>
+				)}
+				{type !== 'completed' && (
+					<div className='menu-option'>
+						<button
+							onClick={() => handleMoveTodo('completed')}
+							title='Move todo'
+							className='move-btn'
+						>
+							<svg
+								width='20px'
+								height='20px'
+								viewBox='0 0 16 16'
+								xmlns='http://www.w3.org/2000/svg'
+								fill='none'
+							>
+								<path fill='#dee7dc' d='M8 3a5 5 0 100 10A5 5 0 008 3z' />
+							</svg>
+						</button>
+					</div>
+				)}
+				<div className='menu-option'>
+					<button
+						className='delete-btn'
+						title='Delete todo'
+						onClick={handleDelete}
+					>
 						<svg
 							width='20px'
 							height='20px'
