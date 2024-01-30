@@ -10,6 +10,13 @@ To run the project, follow these steps:
    npm install
    ```
 
+- Run the development server:
+   ```bash
+   # ./project_folder
+   
+   npm run dev
+   ```
+
 - Go to http://localhost:5173 to see the result.
 
 # Preview
